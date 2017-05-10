@@ -19,25 +19,18 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
 	@Override
 	public List<${className_d}> listPage${className_d}(${className_d} ${className_x}) {
 		StringBuffer s=new StringBuffer();
-		String select = "select ${stringCarrayNames3} from ${className}  where 1=1";
+		String select = "select ${stringCarrayNames3} from ${className} ";
 		s.append(select);
-<#list tableCarrays as tableCarray>
-	<#if tableCarray.carrayType=="String">
-    	if (${className_x}.get${tableCarray.carrayName_d}() != null && !${className_x}.get${tableCarray.carrayName_d}().equals("")) {
-    	s.append(" and ${tableCarray.carrayName}='" + ${className_x}.get${tableCarray.carrayName_d}()+"'");
-    	}
-	<#else>
-    	if (${className_x}.get${tableCarray.carrayName_d}() != null) {
-    		s.append(" and ${tableCarray.carrayName}=" + ${className_x}.get${tableCarray.carrayName_d}()+"");
-    	}
-	</#if>
-</#list>
+		String where=where(${className_x});
+		${className_x}.setTotal(count(where));
+		s.append(where);
+		String limit = " limit " + ${className_x}.getStart() + "," + ${className_x}.getSize();
+		s.append(limit);
+		RowMapper<${className_d}> rowMapper = new BeanPropertyRowMapper<${className_d}>(${className_d}.class);
+		List<${className_d}> list = jdbcTemplate.query(s.toString(), rowMapper);
 
-	RowMapper<${className_d}> rowMapper = new BeanPropertyRowMapper<${className_d}>(${className_d}.class);
-	List<${className_d}> list = jdbcTemplate.query(s.toString(), rowMapper);
-
-	return list;
-}
+		return list;
+	}
 
 
 
@@ -90,7 +83,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
     	}
 	</#if>
 </#list>
-		s.append(" where 	${stringCarrayNames8}");
+		s.append(" where 	#{key}="=${className_x}.get#{key_d});
 		System.out.println(s.toString());
 		String sql = s.toString().replace(", where", " where");
 		jdbcTemplate.update(sql);
@@ -104,20 +97,9 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
     @Override
     public List<${className_d}> list${className_d}(${className_d} ${className_x}) {
 		StringBuffer s=new StringBuffer();
-		String select = "select ${stringCarrayNames3} from ${className}  where 1=1";
+		String select = "select ${stringCarrayNames3} from ${className} ";
 		s.append(select);
-	<#list tableCarrays as tableCarray>
-		<#if tableCarray.carrayType=="String">
-        if (${className_x}.get${tableCarray.carrayName_d}() != null && !${className_x}.get${tableCarray.carrayName_d}().equals("")) {
-        	s.append(" and ${tableCarray.carrayName}='" + ${className_x}.get${tableCarray.carrayName_d}()+"'");
-        }
-		<#else>
-		if (${className_x}.get${tableCarray.carrayName_d}() != null) {
-			s.append(" and ${tableCarray.carrayName}=" + ${className_x}.get${tableCarray.carrayName_d}()+"");
-		}
-		</#if>
-	</#list>
-
+		s.append(where(${className_x}));
 		RowMapper<${className_d}> rowMapper = new BeanPropertyRowMapper<${className_d}>(${className_d}.class);
     	List<${className_d}> list = jdbcTemplate.query(s.toString(), rowMapper);
 
@@ -125,8 +107,15 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
 	}
 	public void  delete${className_d}(${className_d} ${className_x}){
 		StringBuffer s=new StringBuffer();
-		String select = "delete  from ${className}  where 1=1";
+		String select = "delete  from ${className} ";
 		s.append(select);
+		s.append(where(${className_x}));
+		jdbcTemplate.update(s.toString());
+
+	}
+	private static String where(${className_d} ${className_x}) {
+		StringBuffer s = new StringBuffer();
+		s.append(" where 1=1");
 <#list tableCarrays as tableCarray>
 	<#if tableCarray.carrayType=="String">
     	if (${className_x}.get${tableCarray.carrayName_d}() != null && !${className_x}.get${tableCarray.carrayName_d}().equals("")) {
@@ -134,14 +123,18 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
     	}
 	<#else>
     	if (${className_x}.get${tableCarray.carrayName_d}() != null) {
-			s.append("	and ${tableCarray.carrayName}=" + ${className_x}.get${tableCarray.carrayName_d}()+"");
+    		s.append("	and ${tableCarray.carrayName}=" + ${className_x}.get${tableCarray.carrayName_d}()+"");
     	}
 	</#if>
 </#list>
-
-		jdbcTemplate.update(s.toString());
+		return s.toString();
 
 	}
+	private Integer count(String where) {
+		String sql = "select count(*) from ${className}" + where;
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+
 
 
 
