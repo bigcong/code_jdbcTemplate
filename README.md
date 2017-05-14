@@ -20,7 +20,8 @@
      }
 ```
 3. 运行main方法，cd进入生成目标文件的位置（cd /Users/cong/cc/generate），将生成的文件复制到自己的项目工程中
-4.entity包下的继承的Page，为分页对象，可自行配置，例如：
+
+4. entity包下的继承的Page，为分页对象，可自行配置，例如：
 ```
 package com.cc.entity;
 
