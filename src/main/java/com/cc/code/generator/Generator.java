@@ -62,7 +62,7 @@ public class Generator {
      * @datetime:2015年9月15日下午3:25:45
      */
     public void generate(boolean pojo, boolean controller, boolean mapper, boolean service, boolean serviceImpl,
-                         boolean sqlXml, boolean listJsp, boolean infoJsp, boolean viewJsp)
+                         boolean sqlXml)
 
             throws Exception {
 
@@ -94,15 +94,7 @@ public class Generator {
             if (serviceImpl) {
                 buildFactory(table, configuration, FileWriterFactory.SERVICE_IMPL);
             }
-            if (listJsp) {
-                buildFactory(table, configuration, FileWriterFactory.LISTJSP);
-            }
-            if (infoJsp) {
-                buildFactory(table, configuration, FileWriterFactory.INFOJSP);
-            }
-            if (viewJsp) {
-                buildFactory(table, configuration, FileWriterFactory.VIEWJSP);
-            }
+
         }
         System.err.println("祝贺你,生成成功！");
     }
@@ -131,15 +123,7 @@ public class Generator {
             case FileWriterFactory.SQLXML:
                 templateUrl = "sqlXml.ftl";
                 break;
-            case FileWriterFactory.LISTJSP:
-                templateUrl = "list.flt";
-                break;
-            case FileWriterFactory.INFOJSP:
-                templateUrl = "info.flt";
-                break;
-            case FileWriterFactory.VIEWJSP:
-                templateUrl = "view.ftl";
-                break;
+
         }
         build(table, configuration, templateUrl, type);
     }

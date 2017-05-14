@@ -27,6 +27,6 @@ public class Build {
              * 第四个参数:生成目标文件的位置
              */
             Generator generator = new Generator(new String[]{"cc",}, "com.cc", cfg, "/Users/cong/cc/generate");
-            generator.generate(true, true, true, true, true, true, true, true, true);
+            generator.generate(true, true, true, true, true,true);
     }
 }
