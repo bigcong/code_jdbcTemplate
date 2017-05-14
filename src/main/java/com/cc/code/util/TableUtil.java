@@ -367,6 +367,7 @@ public class TableUtil {
                 ResultSet rs = conn.getMetaData().getPrimaryKeys("", "", tableName);
                 while (rs.next()) {
                     String primaryKey = rs.getString("COLUMN_NAME");//获取主键名字
+                    table.setKey(primaryKey);
 
                     table.setKey_x(StringUtil.lowerFirst(StringUtil.newTableName(primaryKey)));
                     table.setKey_d(StringUtil.upperFirst(StringUtil.newTableName(primaryKey)));
