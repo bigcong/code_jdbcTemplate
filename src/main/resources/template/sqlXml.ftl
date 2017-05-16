@@ -22,7 +22,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
 		String select = "select ${stringCarrayNames3} from ${className} ";
 		s.append(select );
         Map<String,Object> m=map(${className_x});
-        String where = "where 1=1 " + m.keySet().stream().map(t -> " and" + t + "=?").collect(Collectors.joining(" "));
+        String where = "where 1=1 " + m.keySet().stream().map(t -> " and " + t + "=?").collect(Collectors.joining(" "));
 		${className_x}.setTotal(count(where,m.values().toArray()));
 		s.append(where);
 		String limit = " limit " + ${className_x}.getStart() + "," + ${className_x}.getSize();
@@ -69,7 +69,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
         String select = "select ${stringCarrayNames3} from ${className} ";
         s.append(select );
         Map<String,Object> m=map(${className_x});
-        String where = "where 1=1 " + m.keySet().stream().map(t -> " and" + t + "=?").collect(Collectors.joining(" "));
+        String where = "where 1=1 " + m.keySet().stream().map(t -> " and " + t + "=?").collect(Collectors.joining(" "));
         s.append(where);
         RowMapper<${className_d}> rowMapper = new BeanPropertyRowMapper<${className_d}>(${className_d}.class);
         List<${className_d}> list = jdbcTemplate.query(s.toString(), rowMapper,m.values().toArray());
@@ -81,7 +81,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
 		String select = "delete  from ${className} ";
         Map<String,Object> m=new HashMap();
         s.append(select);
-        String where = "where 1=1 " + m.keySet().stream().map(t -> " and" + t + "=?").collect(Collectors.joining(" "));
+        String where = "where 1=1 " + m.keySet().stream().map(t -> " and " + t + "=?").collect(Collectors.joining(" "));
         s.append(where);
 		jdbcTemplate.update(s.toString(),m.values().toArray());
 
