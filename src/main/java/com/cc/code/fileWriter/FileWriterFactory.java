@@ -52,7 +52,6 @@ public class FileWriterFactory {
     public static final int CONTROLLER = 9;
 
 
-
     /**
      * @param url
      * @return
@@ -81,7 +80,7 @@ public class FileWriterFactory {
      * @param type
      */
     public static void dataSourceOut(Configuration cfg, String templateName,
-                                     Table table, int type,String resultURL) {
+                                     Table table, int type, String resultURL) {
         String fileName = null;
         Template temp = null;
         try {
@@ -133,7 +132,7 @@ public class FileWriterFactory {
             }
             packageName = packageName.replace(".", "/");
 
-            String url =resultURL +"/"+ packageName + "/"
+            String url = resultURL + "/" + packageName + "/"
                     + table.getClassName_d() + fileName;
             System.out.println(url);
 

@@ -109,11 +109,11 @@ public class JavaType {
 		return "";
 	}
 	
-	public static String getBasicType(String type){
+	public static String  getBasicType(String type){
 		if (type.equals("Boolean"))
 			type = "boolean";
 		if (type.equals("Byte") || type.equals("java.lang.Byte"))
-			type = "byte";
+			type = "Byte";
 		else if (type.equals("Short") || type.equals("java.lang.Short"))
 			type = "short";
 		else if (type.equals("Integer") || type.equals("java.lang.Integer"))
