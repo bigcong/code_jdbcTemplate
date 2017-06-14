@@ -42,8 +42,9 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
         Map<String, Object> m = map(${className_x});
         s.append(String.join(",", m.keySet()));
         s.append(") values (");
-        s.append(String.join("?", m.keySet()));
-        s.append(")");
+		List<String> wenhao = m.keySet().stream().map(t -> "?").collect(Collectors.toList());
+    	s.append(String.join(",", wenhao));
+		s.append(")");
         System.out.println(s.toString());
         jdbcTemplate.update(s.toString(), m.values().toArray());
 	}
