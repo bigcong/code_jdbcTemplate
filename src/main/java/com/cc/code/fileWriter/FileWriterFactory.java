@@ -1,18 +1,13 @@
 package com.cc.code.fileWriter;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-
 import com.cc.code.table.Table;
 import com.cc.code.util.DirMaker;
-
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+
+import java.io.*;
 
 /**
  * @author bigcong
@@ -81,9 +76,12 @@ public class FileWriterFactory {
      */
     public static void dataSourceOut(Configuration cfg, String templateName,
                                      Table table, int type, String resultURL) {
+
         String fileName = null;
         Template temp = null;
         try {
+
+
             temp = cfg.getTemplate(templateName);
         } catch (IOException e) {
             e.printStackTrace();
@@ -118,22 +116,31 @@ public class FileWriterFactory {
                     packageName = table.getPackageName() + ".dao.impl";// 获得这个文件的存储路径(外部传进来的)
                     break;
                 case LISTJSP:
-                    fileName = "List.jsp";
-                    packageName = ".jsp." + table.getClassName_x();
+                    fileName = "List.ftl";
+                    packageName = ".templates." + table.getClassName_x();
                     break;
                 case INFOJSP:
-                    fileName = "Info.jsp";
-                    packageName = ".jsp." + table.getClassName_x();
+                    fileName = "Info.ftl";
+                    packageName = ".templates." + table.getClassName_x();
                     break;
                 case VIEWJSP:
-                    fileName = "View.jsp";
-                    packageName = ".jsp." + table.getClassName_x();
+                    fileName = "View.ftl";
+                    packageName = ".templates." + table.getClassName_x();
                     break;
             }
             packageName = packageName.replace(".", "/");
 
-            String url = resultURL + "/" + packageName + "/"
-                    + table.getClassName_d() + fileName;
+            String url = "";
+            if (fileName.endsWith(".java")) {
+                url = resultURL+"/java" + "/" + packageName + "/"
+                        + table.getClassName_d() + fileName;
+            } else {
+                url = resultURL+"/resources" + "/" + packageName + "/"
+                        + table.getClassName_d() + fileName;
+
+            }
+
+
             System.out.println(url);
 
             File file = new File(url);

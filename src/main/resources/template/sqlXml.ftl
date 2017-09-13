@@ -25,7 +25,14 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
         String where = "where 1=1 " + m.keySet().stream().map(t -> " and " + t + "=?").collect(Collectors.joining(" "));
 		${className_x}.setTotal(count(where,m.values().toArray()));
 		s.append(where);
-		String limit = " limit " + ${className_x}.getStart() + "," + ${className_x}.getSize();
+
+		if (!${className_x}.getOrderBy().equals("")) {
+			s.append(${className_x}.getOrderBy());
+		}
+
+
+		String limit = " limit " + (${className_x}.getStart()-1)*${className_x}.getSize() + "," + ${className_x}.getSize();
+
 		s.append(limit);
 		RowMapper<${className_d}> rowMapper = new BeanPropertyRowMapper<${className_d}>(${className_d}.class);
 		List<${className_d}> list = jdbcTemplate.query(s.toString(), rowMapper,m.values().toArray());
@@ -43,7 +50,8 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
         s.append(String.join(",", m.keySet()));
         s.append(") values (");
 		List<String> wenhao = m.keySet().stream().map(t -> "?").collect(Collectors.toList());
-    	s.append(String.join(",", wenhao));
+
+	s.append(String.join(",", wenhao));
 		s.append(")");
         System.out.println(s.toString());
         jdbcTemplate.update(s.toString(), m.values().toArray());
@@ -80,7 +88,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
 	public void  delete${className_d}(${className_d} ${className_x}){
 		StringBuffer s=new StringBuffer();
 		String select = "delete  from ${className} ";
-        Map<String,Object> m=new HashMap();
+        Map<String,Object> m=map(${className_x});
         s.append(select);
         String where = "where 1=1 " + m.keySet().stream().map(t -> " and " + t + "=?").collect(Collectors.joining(" "));
         s.append(where);

@@ -1,15 +1,14 @@
 package com.cc.code.generator;
 
-import java.sql.Connection;
-import java.util.List;
-
 import com.cc.code.connection.ConnectionFactory;
 import com.cc.code.connection.DataSourceConfig;
 import com.cc.code.fileWriter.FileWriterFactory;
 import com.cc.code.table.Table;
 import com.cc.code.util.TableUtil;
-
 import freemarker.template.Configuration;
+
+import java.sql.Connection;
+import java.util.List;
 
 /**
  * @author bigcong
@@ -37,12 +36,12 @@ public class Generator {
     /**
      * @throws Exception
      */
-    public Generator(String[] tableNames, String packageName, DataSourceConfig cfg,String url) {
+    public Generator(String[] tableNames, String packageName, DataSourceConfig cfg, String url) {
         super();
         this.packageName = packageName;
         this.tableNames = tableNames;
         this.cfg = cfg;
-        this.url=url;
+        this.url = url;
     }
 
     /**
@@ -62,7 +61,7 @@ public class Generator {
      * @datetime:2015年9月15日下午3:25:45
      */
     public void generate(boolean pojo, boolean controller, boolean mapper, boolean service, boolean serviceImpl,
-                         boolean sqlXml)
+                         boolean sqlXml, boolean listJsp, Boolean infoJsp)
 
             throws Exception {
 
@@ -94,6 +93,14 @@ public class Generator {
             if (serviceImpl) {
                 buildFactory(table, configuration, FileWriterFactory.SERVICE_IMPL);
             }
+            if (listJsp) {
+                buildFactory(table, configuration, FileWriterFactory.LISTJSP);
+            }
+            if (infoJsp) {
+                buildFactory(table, configuration, FileWriterFactory.INFOJSP);
+
+            }
+
 
         }
         System.err.println("祝贺你,生成成功！");
@@ -123,6 +130,13 @@ public class Generator {
             case FileWriterFactory.SQLXML:
                 templateUrl = "sqlXml.ftl";
                 break;
+            case FileWriterFactory.LISTJSP:
+                templateUrl = "list.ftl";
+                break;
+            case FileWriterFactory.INFOJSP:
+                templateUrl = "info.ftl";
+                break;
+
 
         }
         build(table, configuration, templateUrl, type);

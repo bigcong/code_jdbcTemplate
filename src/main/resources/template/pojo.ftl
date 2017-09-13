@@ -1,4 +1,5 @@
 package ${packageName}.entity;
+import com.xyhj.lian12.balance.dto.Page;
 
 /**
  * ${className}

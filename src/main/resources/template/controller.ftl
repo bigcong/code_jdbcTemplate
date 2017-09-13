@@ -5,10 +5,16 @@ import ${packageName}.service.${className_d}Service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.ModelAndView;
+import com.xyhj.lian.util.RespEntity;
+import com.xyhj.utils.DateUtils;
+import com.xyhj.utils.UserUtil;
+
 
 import java.util.*;
 
-@RestController
+@Controller
 @Slf4j
 @RequestMapping(value = "/${className_x}")
 public class ${className_d}Controller {
@@ -18,16 +24,48 @@ public class ${className_d}Controller {
 
 
 
+	@RequestMapping(value = "/init")
+	public ModelAndView init(ModelAndView modelAndView,${className_d} ${className_x}) {
+		ModelAndView mv = new ModelAndView("${className_x}/${className_x}List");
+		return mv;
+
+	}
+	@RequestMapping("load")
+	public ModelAndView load(ModelAndView modelAndView ,${className_d} ${className_x}) {
+		if (${className_x}.get${key_d}() != null ) {
+			${className_x}=${className_x}Service.list${className_d}(${className_x}).get(0);
+		}
+
+
+		ModelAndView mv = new ModelAndView("${className_x}/${className_x}Info");
+        mv.addObject("${className_x}",${className_x});
+
+		return mv;
+
+	}
+
+
+
 	/**
 	 * 显示列表
 	 * @param ${className_x}
 	 * @return
 	 */
-	@GetMapping("list")
-	public List<${className_d}>list(${className_d} ${className_x}) {
-		
+	@RequestMapping("list")
+    @ResponseBody
+	public  Map<String, Object> list(${className_d} ${className_x}) {
+		${className_x}.setOrderBy(" order by create_time desc ");
 		List<${className_d}> ${className_x}List = ${className_x}Service.listPage${className_d}(${className_x});
-		return ${className_x}List ;
+		int totalPage = ctCurrencyRelation.getTotal() / ctCurrencyRelation.getSize();
+		if (ctCurrencyRelation.getTotal() % ctCurrencyRelation.getSize() != 0) {
+  			totalPage++;
+		}
+		int finalTotalPage = totalPage;
+		return new HashMap<String, Object>() {{
+			put("list", ctCurrencyRelationList);
+			put("total", ctCurrencyRelation.getTotal());
+			put("totalPage", finalTotalPage);
+		}};
 	}
 	
 
@@ -38,10 +76,18 @@ public class ${className_d}Controller {
 	 * @param ${className_x}
 	 * @return
 	 */
-	@PostMapping(value = "/save")
-	public ${className_d} save(@RequestBody ${className_d} ${className_x}) {
+	@RequestMapping(value = "/save")
+	@ResponseBody
+	public RespEntity save( ${className_d} ${className_x}) {
+
+
+		String uname = UserUtil.getUsername();
+		${className_x}.setLastEditBy(uname);
+		${className_x}.setLastEditTime(DateUtils.getNow());
 	    try {
 			if (${className_x}.get${key_d}() == null || ${className_x}.get${key_d}().intValue() == 0) {
+				${className_x}.setCreateBy(uname);
+				${className_x}.setCreateTime(DateUtils.getNow());
 				${className_x}Service.insertSelective(${className_x});
 			} else {
 				${className_x}Service.updateByPrimaryKeySelective(${className_x});
@@ -49,7 +95,7 @@ public class ${className_d}Controller {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ${className_x};
+		return RespEntity.success("");
 	}
 
 
@@ -59,9 +105,9 @@ public class ${className_d}Controller {
 	 * 查看详情
 	 * @param  ${className_x}
 	 */
-	@PostMapping(value = "/delete")
-	public String delete(${className_d} ${className_x}) {
+	@RequestMapping(value = "/delete")
+	public RespEntity delete(${className_d} ${className_x}) {
 		${className_x}Service.delete${className_d}(${className_x});
-		return "success";
+		return RespEntity.success("");
 	}
 }
