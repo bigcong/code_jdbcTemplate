@@ -25,13 +25,13 @@ public class ${className_d}Controller {
 
 
 	@RequestMapping(value = "/init")
-	public ModelAndView init(ModelAndView modelAndView,${className_d} ${className_x}) {
+	public ModelAndView init(${className_d} ${className_x}) {
 		ModelAndView mv = new ModelAndView("${className_x}/${className_x}List");
 		return mv;
 
 	}
 	@RequestMapping("load")
-	public ModelAndView load(ModelAndView modelAndView ,${className_d} ${className_x}) {
+	public ModelAndView load(${className_d} ${className_x}) {
 		if (${className_x}.get${key_d}() != null ) {
 			${className_x}=${className_x}Service.list${className_d}(${className_x}).get(0);
 		}
@@ -56,14 +56,14 @@ public class ${className_d}Controller {
 	public  Map<String, Object> list(${className_d} ${className_x}) {
 		${className_x}.setOrderBy(" order by create_time desc ");
 		List<${className_d}> ${className_x}List = ${className_x}Service.listPage${className_d}(${className_x});
-		int totalPage = ctCurrencyRelation.getTotal() / ctCurrencyRelation.getSize();
-		if (ctCurrencyRelation.getTotal() % ctCurrencyRelation.getSize() != 0) {
+		int totalPage = ${className_x}.getTotal() / ${className_x}.getSize();
+		if (${className_x}.getTotal() % ${className_x}.getSize() != 0) {
   			totalPage++;
 		}
 		int finalTotalPage = totalPage;
 		return new HashMap<String, Object>() {{
-			put("list", ctCurrencyRelationList);
-			put("total", ctCurrencyRelation.getTotal());
+			put("list", ${className_x}List);
+			put("total", ${className_x}.getTotal());
 			put("totalPage", finalTotalPage);
 		}};
 	}

@@ -27,7 +27,7 @@ public class Build {
          * 第四个参数:生成目标文件的位置
 
          */
-        Generator generator = new Generator(new String[]{"ct_currency_relation"}, "com.xyhj", cfg, "/Users/cong/cc/op/src/main");
+        Generator generator = new Generator(new String[]{"user_action"}, "com.xyhj", cfg, "/Users/cong/cc/op/src/main");
         generator.generate(true, true, true, true, true, true,true,true);
     }
 }
