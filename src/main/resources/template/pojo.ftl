@@ -1,10 +1,11 @@
 package ${packageName}.entity;
 import com.xyhj.lian12.balance.dto.Page;
+import java.io.Serializable;
 
 /**
  * ${className}
  */
-public class ${className_d}  extends Page {
+public class ${className_d}  extends Page implements Serializable {
 
     <#--列出所有的字段 -->
 	<#list tableCarrays as tableCarray>

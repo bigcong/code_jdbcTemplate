@@ -1,4 +1,3 @@
-
 ${r'<#include "../fragments/header.ftl"/>'}
 <section id="content_wrapper">
     <header id="topbar">
@@ -38,14 +37,17 @@ ${r'<#include "../fragments/header.ftl"/>'}
                                 </button>
 
                                 <a class="btn btn-primary" href="load">增加</a>
-
+                                <input type="number" id="size" name="size" placeholder=""
+                                       class="w50 h-25" value="10" min="10">
+                                <i class="fa fa-download" aria-hidden="true" title="下载"></i>
+                                <a id="url" onclick="downLoad();">下载excel</a>
                             </div>
 
                         </form>
 
 
                         <div class="table-responsive">
-                            <table class="table table-bordered mbn table-hover">
+                            <table class="table table-bordered mbn table-hover" id="table">
                                 <thead>
 
                                 <tr>
@@ -84,7 +86,7 @@ ${r'<#include "../fragments/header.ftl"/>'}
     {{# for(var i = 0, len = paramList.length; i < len; i++){ }}
     <tr class="message-unread">
     <#list tableCarrays as tableCarray>
-    <td style="text-align: center"> {{paramList[i].${tableCarray.carrayName_x}}}</td>
+        <td style="text-align: center"> {{paramList[i].${tableCarray.carrayName_x}}}</td>
 
 
     </#list>
@@ -112,10 +114,10 @@ ${r'<#include "../fragments/header.ftl"/>'}
 
     //查询
     function search() {
-        var curr=$("#start").val();
+        var curr = $("#start").val();
         $.ajax({
             url: "list",
-            data:  $("#${className_x}Form").serialize(),
+            data: $("#${className_x}Form").serialize(),
             method: 'post',
             success: function (data) {
                 $("#goodsListPage").html("当前在第" + curr + "页/共" + data.totalPage + "页（" + data.total + "条记录)");
@@ -142,20 +144,29 @@ ${r'<#include "../fragments/header.ftl"/>'}
 
 
     }
+
     function del${className_d}(${className_x}Id) {
         if (confirm("确定要删除该记录？")) {
             var url = "delete?${key_x}=" + ${className_x}Id;
-            $.get(url, function(data) {
+            $.get(url, function (data) {
                 search()
             });
         }
     }
 
+    function downLoad() {
+        var table = document.getElementById("table");
+        var html = "<html><head><meta charset='utf-8' /></head><body>" + document.getElementsByTagName("table")[0].outerHTML + "</body></html>";
+        // 实例化一个Blob对象，其构造函数的第一个参数是包含文件内容的数组，第二个参数是包含文件类型属性的对象
+        var blob = new Blob([html], {type: "application/vnd.ms-excel"});
+        var a = document.getElementById("url")
+        // 利用URL.createObjectURL()方法为a元素生成blob URL
+        a.href = URL.createObjectURL(blob);
+        // 设置文件名，目前只有Chrome和FireFox支持此属性
+        a.download = "${className_x}.xls";
 
 
-
-
-
+    }
 
 
 </script>
