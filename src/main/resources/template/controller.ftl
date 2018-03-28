@@ -22,30 +22,6 @@ public class ${className_d}Controller {
 	@Autowired
 	private ${className_d}Service ${className_x}Service;
 
-
-
-	@RequestMapping(value = "/init")
-	public ModelAndView init(${className_d} ${className_x}) {
-		ModelAndView mv = new ModelAndView("${className_x}/${className_x}List");
-		return mv;
-
-	}
-	@RequestMapping("load")
-	public ModelAndView load(${className_d} ${className_x}) {
-		if (${className_x}.get${key_d}() != null ) {
-			${className_x}=${className_x}Service.list${className_d}(${className_x}).get(0);
-		}
-
-
-		ModelAndView mv = new ModelAndView("${className_x}/${className_x}Info");
-        mv.addObject("${className_x}",${className_x});
-
-		return mv;
-
-	}
-
-
-
 	/**
 	 * 显示列表
 	 * @param ${className_x}
@@ -68,8 +44,6 @@ public class ${className_d}Controller {
 		}};
 	}
 	
-
-
 	/**
 	 * 保存
 	 * 
@@ -79,7 +53,6 @@ public class ${className_d}Controller {
 	@RequestMapping(value = "/save")
 	@ResponseBody
 	public RespEntity save( ${className_d} ${className_x}) {
-
 
 		String uname = UserUtil.getUsername();
 		${className_x}.setLastEditBy(uname);
@@ -98,9 +71,6 @@ public class ${className_d}Controller {
 		return RespEntity.success("");
 	}
 
-
-
-	
 	/**
 	 * 查看详情
 	 * @param  ${className_x}
