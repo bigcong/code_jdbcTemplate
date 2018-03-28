@@ -47,21 +47,18 @@ public class Generator {
     /**
      * {方法功能中文描述}
      *
-     * @param pojo
+     * @param entity
      * @param controller
-     * @param mapper
+     * @param dao
      * @param service
      * @param serviceImpl
-     * @param sqlXml
-     * @param listJsp
-     * @param infoJsp
-     * @param viewJsp
+     * @param daoImpl
      * @throws Exception
      * @author: cuicong
      * @datetime:2015年9月15日下午3:25:45
      */
-    public void generate(boolean pojo, boolean controller, boolean mapper, boolean service, boolean serviceImpl,
-                         boolean sqlXml, boolean listJsp, Boolean infoJsp)
+    public void generate(boolean entity, boolean controller, boolean dao, boolean service, boolean serviceImpl,
+                         boolean daoImpl)
 
             throws Exception {
 
@@ -75,16 +72,16 @@ public class Generator {
         Configuration configuration = FileWriterFactory.getConfiguration("");
 
         for (Table table : tables) {
-            if (pojo) {
+            if (entity) {
                 buildFactory(table, configuration, FileWriterFactory.POJO);
             }
             if (controller) {
                 buildFactory(table, configuration, FileWriterFactory.CONTROLLER);
             }
-            if (mapper) {
+            if (dao) {
                 buildFactory(table, configuration, FileWriterFactory.MAPPER);
             }
-            if (sqlXml) {
+            if (daoImpl) {
                 buildFactory(table, configuration, FileWriterFactory.SQLXML);
             }
             if (service) {
@@ -93,15 +90,6 @@ public class Generator {
             if (serviceImpl) {
                 buildFactory(table, configuration, FileWriterFactory.SERVICE_IMPL);
             }
-            if (listJsp) {
-                buildFactory(table, configuration, FileWriterFactory.LISTJSP);
-            }
-            if (infoJsp) {
-                buildFactory(table, configuration, FileWriterFactory.INFOJSP);
-
-            }
-
-
         }
         System.err.println("祝贺你,生成成功！");
     }
@@ -130,14 +118,6 @@ public class Generator {
             case FileWriterFactory.SQLXML:
                 templateUrl = "daoImpl.ftl";
                 break;
-            case FileWriterFactory.LISTJSP:
-                templateUrl = "list.ftl";
-                break;
-            case FileWriterFactory.INFOJSP:
-                templateUrl = "info.ftl";
-                break;
-
-
         }
         build(table, configuration, templateUrl, type);
     }

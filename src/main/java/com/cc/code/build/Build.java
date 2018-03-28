@@ -25,9 +25,8 @@ public class Build {
          * 第二个参数:生成的文件的作存放的包名
          * 第三个参数:数据源配置
          * 第四个参数:生成目标文件的位置
-
          */
         Generator generator = new Generator(new String[]{"qt_current_quote"}, "com.xyhj", cfg, "/Users/cong/cc/op/src/main");
-        generator.generate(true, true, true, true, true, true,true,true);
+        generator.generate(true, true, true, true, true, true);
     }
 }
