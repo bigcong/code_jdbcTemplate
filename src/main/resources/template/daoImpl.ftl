@@ -4,7 +4,7 @@ import ${packageName}.dao.${className_d}Dao;
 import ${packageName}.entity.${className_d};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.*;
-
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -104,5 +104,14 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
 	private Integer count(String where,Object[] objects) {
 		String sql = "select count(*) from ${className} " + where;
 		return jdbcTemplate.queryForObject(sql, Integer.class,objects);
+	}
+
+    @Override
+	private ${className_d} get(Long ${key_x}){
+		try{
+    		return jdbcTemplate.queryForObject("select * from ${className} where id = ?",new BeanPropertyRowMapper<>(${className_d}.class,${key_x});
+    	}catch (EmptyResultDataAccessException e){
+			return null;
+		}
 	}
 }

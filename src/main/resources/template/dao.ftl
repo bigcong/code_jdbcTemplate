@@ -13,4 +13,6 @@ public interface ${className_d}Dao{
 	List<${className_d}> list${className_d}(${className_d} ${className_x});
 
 	void delete${className_d}(${className_d} ${className_x});
+
+	${className_d} get(Long ${key_x});
 }
