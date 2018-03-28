@@ -177,8 +177,9 @@ public class TableUtil {
         Map map = new HashMap();
         ResultSetMetaData rsmd = rs.getMetaData();
         int cols = rsmd.getColumnCount();
-        for (int i = 1; i <= cols; i++)
+        for (int i = 1; i <= cols; i++) {
             map.put(rsmd.getColumnName(i), rs.getObject(i));
+        }
 
         return map;
     }
