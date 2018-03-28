@@ -75,6 +75,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
     	return jdbcTemplate.query(s.toString(), rowMapper,m.values().toArray());
 	}
 
+    @Override
 	public void  delete${className_d}(${className_d} ${className_x}){
 		StringBuffer s=new StringBuffer();
 		String select = "delete  from ${className} ";
