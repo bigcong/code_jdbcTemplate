@@ -1,12 +1,16 @@
 package ${packageName}.entity;
-import java.io.Serializable;
+
 import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
  * ${className}
  * @author lilaizhen
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ${className_d}{
 
     <#--列出所有的字段 -->
