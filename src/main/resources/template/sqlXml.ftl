@@ -59,7 +59,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
         Map<String, Object> m = map(${className_x});
         String update = m.keySet().stream().map(t -> t + "=?").collect(Collectors.joining(","));
         s.append(update);
-        s.append(" where 	${key}=" + ${className_x}.get${key_d}());
+        s.append(" where ${key}=" + ${className_x}.get${key_d}());
         jdbcTemplate.update(s.toString(), m.values().toArray());
 	}
 
