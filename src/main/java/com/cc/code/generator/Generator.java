@@ -113,13 +113,13 @@ public class Generator {
         String templateUrl = "";
         switch (type) {
             case FileWriterFactory.POJO:
-                templateUrl = "pojo.ftl";
+                templateUrl = "entity.ftl";
                 break;
             case FileWriterFactory.CONTROLLER:
                 templateUrl = "controller.ftl";
                 break;
             case FileWriterFactory.MAPPER:
-                templateUrl = "mapper.ftl";
+                templateUrl = "dao.ftl";
                 break;
             case FileWriterFactory.SERVICE:
                 templateUrl = "service.ftl";
@@ -128,7 +128,7 @@ public class Generator {
                 templateUrl = "serviceImp.ftl";
                 break;
             case FileWriterFactory.SQLXML:
-                templateUrl = "sqlXml.ftl";
+                templateUrl = "daoImpl.ftl";
                 break;
             case FileWriterFactory.LISTJSP:
                 templateUrl = "list.ftl";
