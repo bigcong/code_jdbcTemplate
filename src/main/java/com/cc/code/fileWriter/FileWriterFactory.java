@@ -93,11 +93,11 @@ public class FileWriterFactory {
             switch (type) {
                 case POJO:
                     fileName = ".java";
-                    packageName = table.getPackageName() + ".entity";// 获得这个文件的存储路径(外部传进来的)
+                    packageName = table.getPackageName() + ".entity";
                     break;
                 case CONTROLLER:
                     fileName = "Controller" + ".java";
-                    packageName = table.getPackageName() + ".controller";// 获得这个文件的存储路径(外部传进来的)
+                    packageName = table.getPackageName() + ".controller";
                     break;
                 case MAPPER:
                     fileName = "Dao" + ".java";
@@ -113,7 +113,7 @@ public class FileWriterFactory {
                     break;
                 case SQLXML:
                     fileName = "DaoImpl" + ".java";
-                    packageName = table.getPackageName() + ".dao.impl";// 获得这个文件的存储路径(外部传进来的)
+                    packageName = table.getPackageName() + ".dao.impl";
                     break;
                 case LISTJSP:
                     fileName = "List.ftl";
@@ -130,7 +130,7 @@ public class FileWriterFactory {
             }
             packageName = packageName.replace(".", "/");
 
-            String url = "";
+            String url;
             if (fileName.endsWith(".java")) {
                 url = resultURL+"/java" + "/" + packageName + "/"
                         + table.getClassName_d() + fileName;
