@@ -5,8 +5,7 @@ import ${packageName}.service.${className_d}Service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.RestController;
-import com.polarisex.common.util.RespEntity;
+import com.polarisex.common.RespEntity;
 
 import java.util.*;
 
