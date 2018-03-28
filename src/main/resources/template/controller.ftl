@@ -5,16 +5,12 @@ import ${packageName}.service.${className_d}Service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.servlet.ModelAndView;
-import com.xyhj.lian.util.RespEntity;
-import com.xyhj.utils.DateUtils;
-import com.xyhj.utils.UserUtil;
-
+import org.springframework.stereotype.RestController;
+import com.polarisex.common.util.RespEntity;
 
 import java.util.*;
 
-@Controller
+@RestController
 @Slf4j
 @RequestMapping(value = "/${className_x}")
 public class ${className_d}Controller {
