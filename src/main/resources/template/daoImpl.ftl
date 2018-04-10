@@ -31,7 +31,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
         String where = "where 1=1 " + m.keySet().stream().map(t -> " and " + t + "=?").collect(Collectors.joining(" "));
 		${className_x}.setTotal(count(where,m.values().toArray()));
 		s.append(where);
-		if (!${className_x}.getOrderBy().equals("")) {
+		if (!Strings.isNullOrEmpty(${className_x}.getOrderBy())) {
 			s.append(${className_x}.getOrderBy());
 		}
 		String limit = " limit " + (${className_x}.getStart()-1)*${className_x}.getSize() + "," + ${className_x}.getSize();
@@ -106,9 +106,9 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
 	}
 
     @Override
-	private ${className_d} get(Long ${key_x}){
+	public ${className_d} get(Long ${key_x}){
 		try{
-    		return jdbcTemplate.queryForObject("select * from ${className} where id = ?",new BeanPropertyRowMapper<>(${className_d}.class,${key_x});
+    		return jdbcTemplate.queryForObject("select * from ${className} where id = ?",new BeanPropertyRowMapper<>(${className_d}.class),${key_x});
     	}catch (EmptyResultDataAccessException e){
 			return null;
 		}
