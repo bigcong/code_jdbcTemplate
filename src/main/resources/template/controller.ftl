@@ -48,7 +48,6 @@ public class ${className_d}Controller {
 	@RequestMapping(value = "/save")
 	@ResponseBody
 	public RespEntity save( ${className_d} ${className_x}) {
-
 		String uname = UserUtil.getUsername();
 		${className_x}.setLastEditBy(uname);
 		${className_x}.setLastEditTime(DateUtils.getNow());
