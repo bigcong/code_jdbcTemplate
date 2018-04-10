@@ -2,7 +2,7 @@ package ${packageName}.controller;
 
 import ${packageName}.entity.${className_d};
 import ${packageName}.service.${className_d}Service;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.polarisex.common.RespEntity;
@@ -10,7 +10,7 @@ import com.polarisex.common.RespEntity;
 import java.util.*;
 
 @RestController
-@Slf4j
+@Log4j2
 @RequestMapping(value = "/${className_x}")
 public class ${className_d}Controller {
 

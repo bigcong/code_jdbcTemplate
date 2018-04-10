@@ -6,7 +6,7 @@ import ${packageName}.service.${className_d}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 /**
  * ${className}
@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2018/4/1
  */
 @Service
-@Slf4j
+@Log4j2
 @Transactional(rollbackFor = Exception.class)
 public  class ${className_d}ServiceImpl implements ${className_d}Service{
     @Autowired
