@@ -24,7 +24,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
 
 	@Override
 	public List<${className_d}> listPage${className_d}(${className_d} ${className_x}) {
-		StringBuffer s=new StringBuffer();
+		StringBuilder s=new StringBuilder();
 		String select = "select ${stringCarrayNames3} from ${className} ";
 		s.append(select );
         Map<String,Object> m=map(${className_x});
@@ -41,7 +41,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
 
     @Override
     public void insertSelective(${className_d} ${className_x}) {
-		StringBuffer s = new StringBuffer();
+		StringBuilder s=new StringBuilder();
 		s.append("insert into ${className}(");
         Map<String, Object> m = map(${className_x});
         s.append(String.join(",", m.keySet()));
@@ -54,7 +54,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
 
     @Override
     public void updateByPrimaryKeySelective(${className_d} ${className_x}) {
-		StringBuffer s = new StringBuffer();
+    	StringBuilder s=new StringBuilder();
 		s.append("update ${className} set ");
         Map<String, Object> m = map(${className_x});
         String update = m.keySet().stream().map(t -> t + "=?").collect(Collectors.joining(","));
@@ -65,7 +65,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
 
     @Override
     public List<${className_d}> list${className_d}(${className_d} ${className_x}) {
-        StringBuffer s=new StringBuffer();
+    	StringBuilder s=new StringBuilder();
         String select = "select ${stringCarrayNames3} from ${className} ";
         s.append(select );
         Map<String,Object> m=map(${className_x});
@@ -76,7 +76,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
 
     @Override
 	public void  delete${className_d}(${className_d} ${className_x}){
-		StringBuffer s=new StringBuffer();
+    	StringBuilder s=new StringBuilder();
 		String select = "delete  from ${className} ";
         Map<String,Object> m=map(${className_x});
         s.append(select);
