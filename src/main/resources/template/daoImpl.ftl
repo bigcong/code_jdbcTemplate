@@ -2,6 +2,7 @@ package ${packageName}.dao.impl;
 
 import ${packageName}.dao.${className_d}Dao;
 import ${packageName}.entity.${className_d};
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.*;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -45,8 +46,8 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
         Map<String, Object> m = map(${className_x});
         s.append(String.join(",", m.keySet()));
         s.append(") values (");
-		List<String> wenhao = m.keySet().stream().map(t -> "?").collect(Collectors.toList());
-		s.append(String.join(",", wenhao));
+		List<String> query = m.keySet().stream().map(t -> "?").collect(Collectors.toList());
+		s.append(String.join(",", query));
 		s.append(")");
         jdbcTemplate.update(s.toString(), m.values().toArray());
 	}
@@ -88,7 +89,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
 		Map<String,Object> map=new HashMap();
 		<#list tableCarrays as tableCarray>
 			<#if tableCarray.carrayType=="String">
-				if (${className_x}.get${tableCarray.carrayName_d}() != null && !${className_x}.get${tableCarray.carrayName_d}().equals("")) {
+				if (!Strings.isNullOrEmpty(${className_x}.get${tableCarray.carrayName_d}())) {
 					map.put("${tableCarray.carrayName}",${className_x}.get${tableCarray.carrayName_d}());
 				}
 			<#else>
