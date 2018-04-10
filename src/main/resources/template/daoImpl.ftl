@@ -13,7 +13,7 @@ import java.util.stream.*;
 /**
  *
  * @author lilaizhen
- * @date 2018/1/25
+ * @date 2018/4/10
  */
 @Repository
 public class ${className_d}DaoImpl implements ${className_d}Dao {
@@ -35,8 +35,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
 		}
 		String limit = " limit " + (${className_x}.getStart()-1)*${className_x}.getSize() + "," + ${className_x}.getSize();
 		s.append(limit);
-		RowMapper<${className_d}> rowMapper = new BeanPropertyRowMapper<${className_d}>(${className_d}.class);
-		return jdbcTemplate.query(s.toString(), rowMapper,m.values().toArray());
+		return jdbcTemplate.query(s.toString(), new BeanPropertyRowMapper<>(${className_d}.class),m.values().toArray());
 	}
 
     @Override
@@ -71,8 +70,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
         Map<String,Object> m=map(${className_x});
         String where = "where 1=1 " + m.keySet().stream().map(t -> " and " + t + "=?").collect(Collectors.joining(" "));
         s.append(where);
-        RowMapper<${className_d}> rowMapper = new BeanPropertyRowMapper<${className_d}>(${className_d}.class);
-    	return jdbcTemplate.query(s.toString(), rowMapper,m.values().toArray());
+    	return jdbcTemplate.query(s.toString(), new BeanPropertyRowMapper<>(${className_d}.class),m.values().toArray());
 	}
 
     @Override
