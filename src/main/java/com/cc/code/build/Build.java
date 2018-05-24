@@ -26,7 +26,7 @@ public class Build {
          * 第三个参数:数据源配置
          * 第四个参数:生成目标文件的位置
          */
-        Generator generator = new Generator(new String[]{"user"}, "com.suhui.member", cfg, "/Users/lilaizhen/Desktop");
+        Generator generator = new Generator(new String[]{"user_notice","notice"}, "com.suhui", cfg, "/Users/cc/cc/mgr/src/main");
         generator.generate(true, true, true, true, true, true);
     }
 }

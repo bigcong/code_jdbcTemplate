@@ -108,7 +108,7 @@ public class ${className_d}DaoImpl implements ${className_d}Dao {
     @Override
 	public ${className_d} get(Long ${key_x}){
 		try{
-    		return jdbcTemplate.queryForObject("select * from ${className} where id = ?",new BeanPropertyRowMapper<>(${className_d}.class),${key_x});
+    		return jdbcTemplate.queryForObject("select * from ${className} where ${key} = ?",new BeanPropertyRowMapper<>(${className_d}.class),${key_x});
     	}catch (EmptyResultDataAccessException e){
 			return null;
 		}

@@ -23,20 +23,19 @@ public class ${className_d}Controller {
 	 * @return
 	 */
 	@RequestMapping("list")
-    @ResponseBody
-	public  Map<String, Object> list(${className_d} ${className_x}) {
-		${className_x}.setOrderBy(" order by create_time desc ");
+	public  RespEntity list(${className_d} ${className_x}) {
 		List<${className_d}> ${className_x}List = ${className_x}Service.listPage${className_d}(${className_x});
 		int totalPage = ${className_x}.getTotal() / ${className_x}.getSize();
 		if (${className_x}.getTotal() % ${className_x}.getSize() != 0) {
   			totalPage++;
 		}
 		int finalTotalPage = totalPage;
-		return new HashMap<String, Object>() {{
+		Map<String,Object> map= new HashMap<String, Object>() {{
 			put("list", ${className_x}List);
 			put("total", ${className_x}.getTotal());
 			put("totalPage", finalTotalPage);
 		}};
+		return RespEntity.success(map);
 	}
 	
 	/**
@@ -46,15 +45,10 @@ public class ${className_d}Controller {
 	 * @return
 	 */
 	@RequestMapping(value = "/save")
-	@ResponseBody
 	public RespEntity save( ${className_d} ${className_x}) {
-		String uname = UserUtil.getUsername();
-		${className_x}.setLastEditBy(uname);
-		${className_x}.setLastEditTime(DateUtils.getNow());
+
 	    try {
 			if (${className_x}.get${key_d}() == null || ${className_x}.get${key_d}().intValue() == 0) {
-				${className_x}.setCreateBy(uname);
-				${className_x}.setCreateTime(DateUtils.getNow());
 				${className_x}Service.insertSelective(${className_x});
 			} else {
 				${className_x}Service.updateByPrimaryKeySelective(${className_x});
@@ -74,4 +68,9 @@ public class ${className_d}Controller {
 		${className_x}Service.delete${className_d}(${className_x});
 		return RespEntity.success("");
 	}
+	@RequestMapping(value = "/get")
+	public RespEntity get(Long ${key_x}){
+		return RespEntity.success(${className_x}Service.get(${key_x}));
+	}
+
 }

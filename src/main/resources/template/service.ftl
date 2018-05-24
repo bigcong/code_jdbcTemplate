@@ -16,5 +16,7 @@ public interface ${className_d}Service{
 	void insertSelective(${className_d} ${className_x});
 
 	void updateByPrimaryKeySelective(${className_d} ${className_x});
+	public ${className_d} get(Long ${key_x});
+
 	
 }

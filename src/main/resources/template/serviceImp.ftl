@@ -45,5 +45,11 @@ public  class ${className_d}ServiceImpl implements ${className_d}Service{
 	public void updateByPrimaryKeySelective(${className_d} ${className_x}){
 		 ${className_x}Dao.updateByPrimaryKeySelective(${className_x});
 	}
+  @Override
+	public ${className_d} get(Long ${key_x}){
+	  return	${className_x}Dao.get(${key_x});
+
+	}
+
 	
 }

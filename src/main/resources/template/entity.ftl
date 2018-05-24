@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode;
-import com.polarisex.common.Page;
+import com.suhui.coin.entity.MyPage;
 /**
  * ${className}
  * @author lilaizhen
@@ -13,7 +13,7 @@ import com.polarisex.common.Page;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class ${className_d} extends Page{
+public class ${className_d} extends MyPage{
 
     <#--列出所有的字段 -->
 	<#list tableCarrays as tableCarray>
